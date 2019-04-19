@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -8,8 +6,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import LoginForm from '../components/loginForm';
+import { makeStyles, useTheme } from '@material-ui/styles';
+import AppTheme from '../AppTheme';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
@@ -36,10 +36,11 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main
   },
-});
+}));
 
-function LoginPage(props) {
-  const {classes} = props;
+function LoginPage() {
+  const classes = useStyles();
+  const theme = useTheme(AppTheme);
 
   return (
     <main className={classes.main}>
@@ -57,8 +58,4 @@ function LoginPage(props) {
   );
 }
 
-LoginPage.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(LoginPage);
+export default LoginPage;

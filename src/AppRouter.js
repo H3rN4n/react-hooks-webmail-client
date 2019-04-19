@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, LocationProvider} from "@reach/router";
+import {Router, Redirect} from "@reach/router";
 
 //PAGES
 import NotFoundPage from './pages/NotFoundPage';
@@ -14,7 +14,8 @@ function AppRouter() {
   return (
     <Router>
       <NotFoundPage default/>
-      <HomePage path="/"/>
+      <Redirect from="/" to="home" />
+      <HomePage path="/home"/>
       <LoginPage path="login/"/>
       <InvoicesPage path="invoices">
         <InvoiceList path="/"/>

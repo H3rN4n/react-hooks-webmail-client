@@ -6,9 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import withStyles from '@material-ui/core/styles/withStyles';
 
-import {navigate} from "@reach/router";
 import {AppContext} from "../AppContext";
 import { makeStyles, useTheme } from '@material-ui/styles';
 import AppTheme from '../AppTheme';
@@ -25,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 function LoginForm(props) {
   const classes = useStyles();
+  const theme = useTheme(AppTheme);
 
   const [values,
     setValues] = React.useState({email: '', password: ''});
@@ -38,19 +37,18 @@ function LoginForm(props) {
 
   let {state, dispatch} = useContext(AppContext);
 
-  function submitForm($event) {
-    let inc = () => dispatch({
+  function submitForm(e) {
+    e.preventDefault();
+    dispatch({
       type: "login",
       action: {
         parameters: values
       }
-    },);
-    // navigate('/invoices/inbox')
+    });
   }
 
   return (
     <form onSubmit={submitForm} className={classes.form}>
-      {JSON.stringify(values)}
       <FormControl margin="normal" required fullWidth>
         <InputLabel htmlFor="email">Email Address</InputLabel>
         <Input
@@ -85,9 +83,5 @@ function LoginForm(props) {
     </form>
   );
 }
-
-LoginForm.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default LoginForm;

@@ -6,15 +6,15 @@ import AppRouter from './AppRouter';
 import {ThemeProvider} from '@material-ui/styles';
 
 import AppTheme from './AppTheme';
+import Header from './components/header';
 
 let history = createHistory(window)
-
-// <Grid item xs={12}>   <Header/> </Grid>
 
 function AppLayout(props) {
 
   return (
     <ThemeProvider theme={AppTheme}>
+      <Header/>
       <LocationProvider history={history}>
         <AppRouter></AppRouter>
       </LocationProvider>

@@ -1,21 +1,40 @@
 import React, {useState} from 'react';
-import Grid from '@material-ui/core/Grid';
+import EmailIcon from '@material-ui/icons/Email';
+import {AppBar, Toolbar, Typography} from '@material-ui/core';
+import {makeStyles, useTheme} from '@material-ui/styles';
+import AppTheme from '../AppTheme';
+import {Link} from '@reach/router';
 
-import AppContext from '../AppContext';
+const useStyles = makeStyles(theme => ({
+  appBar: {
+    position: 'relative'
+  },
+  icon: {
+    marginRight: theme.spacing.unit * 2,
+  },
+  link: {
+    color: theme.palette.primary.contrastText,
+    textDecoration: 'none'
+  }
+}));
 
 function Header() {
-
+  const classes = useStyles();
+  const theme = useTheme(AppTheme);
+console.log(theme)
   return (
-    <AppContext.Consumer>
-      {value => (
-        <Grid container spacing={24}>
-          <Grid item xs={3}>
-            {value.name}
-          </Grid>
-          <Grid item xs={9}></Grid>
-        </Grid>
-      )}
-    </AppContext.Consumer>
+    <AppBar position="static" className={classes.appBar}>
+      <Toolbar>
+        <Link to="/" className={classes.link}>
+          <EmailIcon className={classes.icon}/>
+        </Link>
+        <Link to="/" className={classes.link}>
+          <Typography variant="h6" color="inherit" noWrap>
+            Simple React Webmail
+          </Typography>
+        </Link>
+      </Toolbar>
+    </AppBar>
   );
 }
 

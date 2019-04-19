@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {
   Popper,
@@ -11,6 +11,7 @@ import {
   Avatar
 } from '@material-ui/core';
 import {makeStyles} from '@material-ui/styles';
+import {AppContext} from '../AppContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,6 +56,7 @@ const useStyles = makeStyles(theme => ({
 function SidebarHeader(props) {
 
   const classes = useStyles();
+  let {state, dispatch} = useContext(AppContext);
   const [open,
     setOpen] = React.useState(false);
   const anchorEl = React.useRef(null);
@@ -69,6 +71,11 @@ function SidebarHeader(props) {
     }
 
     setOpen(false);
+  }
+
+  function handleLogout(event) {
+    dispatch({type: "logout"});
+    handleClose(event);
   }
 
   return (
@@ -107,9 +114,7 @@ function SidebarHeader(props) {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

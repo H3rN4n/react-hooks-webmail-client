@@ -1,4 +1,5 @@
 import React from 'react';
+import {navigate} from "@reach/router";
 
 let AppContext = React.createContext();
 
@@ -6,15 +7,20 @@ let initialState = {
   auth: {}
 };
 
-let reducer = (state, action) => {
-  console.log(action)
+const validateCredential = (state, action) => {
+  navigate('/invoices/inbox');
+  return {
+    ...state,
+    auth: action.parameters
+  };
+}
+
+let reducer = async(state, action) => {
   switch (action.type) {
     case "login":
-      return {
-        ...state,
-        auth: action.parameters
-      };
+      return validateCredential(state, action);
     case "logout":
+      navigate('/home');
       return {
         ...state,
         auth: {}
@@ -42,4 +48,4 @@ function AppContextProvider(props) {
 let AppContextConsumer = AppContext.Consumer;
 
 // [C]
-export {AppContext, AppContextConsumer, AppContextProvider};
+export {AppContext, AppContextProvider, AppContextConsumer};
