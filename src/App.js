@@ -1,23 +1,29 @@
-import React, {useState} from 'react';
-// import { createMuiTheme } from '@material-ui/core/styles'; import blue from
-// '@material-ui/core/colors/blue';
-
-import './App.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import AppLayout from './AppLayout';
+import {AppContext, AppContextProvider} from './AppContext';
 
-// const theme = createMuiTheme({   palette: {     primary: blue,     secondary:
-//  blue   }, });
+const styles = theme => ({
+  root: {
+    width: '100%',
+    height: '100%',
+    minHeight: '100%',
+    display: 'flex',
+	  flexDirection: 'column'
+  }
+});
 
-const App = () => {
+const App = (props) => {
 
-  const [state,
-    setState] = useState({name: 'React Webmail Client', reactVersion: React.version})
+  const {classes} = props;
+
   return (
-    <div className="App">
-      {state.name}
-      on React v{state.reactVersion}
-      <AppLayout/>
+    <div className={classes.root}>
+      <AppContextProvider>
+        <AppLayout/>
+      </AppContextProvider>
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"/>
@@ -26,6 +32,10 @@ const App = () => {
         href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     </div>
   );
-}
+};
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(App);
